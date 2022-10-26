@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project01/pages/list_view_page.dart';
 import 'package:project01/pages/hello_page1.dart';
 import 'package:project01/pages/hello_page2.dart';
+import 'package:project01/utils/nav.dart';
 import 'package:project01/widgets/default_button.dart';
 
 class HomePage extends StatelessWidget {
@@ -77,7 +78,7 @@ _buttons(context) {
 }
 
 _onClickNavigator(BuildContext context, Widget page) async {
-  var s = await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => page));
+  var s = await push(context, page);
   if (kDebugMode) {
     print(">> $s");
   }
