@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../home_page.dart';
+import '../utils/nav.dart';
 import '../widgets/default_button.dart';
 
 class HelloPage2 extends StatelessWidget {
@@ -29,5 +30,5 @@ _body(context) {
 }
 
 _onClickPop(context){
-  Navigator.pop(context, "Page 2");
+  pop(context, "Page 2");
 }
