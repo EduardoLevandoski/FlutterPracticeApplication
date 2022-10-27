@@ -13,8 +13,15 @@ class Dog {
   getText() => _text(name);
 }
 
-class ListViewPage extends StatelessWidget {
+class ListViewPage extends StatefulWidget {
   const ListViewPage({Key? key}) : super(key: key);
+
+  @override
+  State<ListViewPage> createState() => _ListViewPageState();
+}
+
+class _ListViewPageState extends State<ListViewPage> {
+  late bool _gridView = true;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +31,19 @@ class ListViewPage extends StatelessWidget {
         backgroundColor: Colors.orange,
         centerTitle: true,
         actions: [
-          _iconButton(() => _onClickPop(context, "Home"), const Icon(Icons.home)),
+          _iconButton(() {
+            setState(() {
+              _gridView = false;
+            });
+          }, const Icon(Icons.view_list)),
+          _iconButton(() {
+            setState(() {
+              _gridView = true;
+            });
+          }, const Icon(Icons.grid_view)),
         ],
       ),
-      body: _body(),
+      body: _body(_gridView),
     );
   }
 }
@@ -39,7 +55,7 @@ _iconButton(Function() onPressed, icon) {
   );
 }
 
-_body() {
+_body(_gridView) {
   List<Dog> dogs = [
     Dog("Jack Russel", "dog1.png"),
     Dog("Golden Retriever", "dog2.png"),
@@ -48,18 +64,32 @@ _body() {
     Dog("Border Collie", "dog5.png"),
   ];
 
-  return GridView.builder(
-    itemCount: dogs.length,
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-    itemBuilder: (context, index) {
-      return Stack(
-        fit: StackFit.expand,
-        children: [
-          dogs[index].getPicture(),
-          dogs[index].getText(),
-        ],
-      );
-    },
+  if(_gridView){
+    return GridView.builder(
+      itemCount: dogs.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      itemBuilder: (context, index) {
+        return _itemView(dogs, index);
+      },
+    );
+  } else {
+    return ListView.builder(
+      itemCount: dogs.length,
+      itemExtent: 420,
+      itemBuilder: (context, index) {
+        return _itemView(dogs, index);
+      },
+    );
+  }
+}
+
+Stack _itemView(List<Dog> dogs, int index) {
+  return Stack(
+    fit: StackFit.expand,
+    children: [
+      dogs[index].getPicture(),
+      dogs[index].getText(),
+    ],
   );
 }
 
@@ -88,8 +118,3 @@ _text(String text) {
     ),
   );
 }
-
-_onClickPop(context, [value]){
-  pop(context, value);
-}
-
