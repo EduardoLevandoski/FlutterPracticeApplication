@@ -6,6 +6,7 @@ import 'package:project01/pages/hello_page2.dart';
 import 'package:project01/pages/list_view_page.dart';
 import 'package:project01/utils/nav.dart';
 import 'package:project01/widgets/default_button.dart';
+import 'package:project01/widgets/drawer_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.orange,
         child: const Icon(Icons.add),
       ),
+      drawer: const DrawerList(),
     );
   }
 }
