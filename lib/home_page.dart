@@ -19,7 +19,18 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: _body(context),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _onClickFab(),
+        backgroundColor: Colors.orange,
+        child: const Icon(Icons.add),
+      ),
     );
+  }
+}
+
+_onClickFab() {
+  if (kDebugMode) {
+    print("Add");
   }
 }
 
