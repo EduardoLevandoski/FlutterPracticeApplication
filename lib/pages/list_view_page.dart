@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:project01/pages/dog_page.dart';
 
 import '../utils/nav.dart';
 
@@ -21,7 +23,7 @@ class ListViewPage extends StatefulWidget {
 }
 
 class _ListViewPageState extends State<ListViewPage> {
-  late bool _gridView = true;
+  late bool _gridView = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +34,17 @@ class _ListViewPageState extends State<ListViewPage> {
         centerTitle: true,
         actions: [
           _iconButton(() {
+            if (kDebugMode) {
+              print("List");
+            }
             setState(() {
               _gridView = false;
             });
           }, const Icon(Icons.view_list)),
           _iconButton(() {
+            if (kDebugMode) {
+              print("Grid");
+            }
             setState(() {
               _gridView = true;
             });
@@ -69,7 +77,7 @@ _body(_gridView) {
       itemCount: dogs.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (context, index) {
-        return _itemView(dogs, index);
+        return _itemView(dogs, index, context);
       },
     );
   } else {
@@ -77,24 +85,28 @@ _body(_gridView) {
       itemCount: dogs.length,
       itemExtent: 420,
       itemBuilder: (context, index) {
-        return _itemView(dogs, index);
+        return _itemView(dogs, index, context);
       },
     );
   }
 }
 
-Stack _itemView(List<Dog> dogs, int index) {
-  return Stack(
-    fit: StackFit.expand,
-    children: [
-      dogs[index].getPicture(),
-      dogs[index].getText(),
-    ],
+_itemView(List<Dog> dogs, int index, context) {
+  return GestureDetector(
+    onTap: () => push(context, DogPage(dog: dogs[index])),
+    child: Stack(
+      fit: StackFit.expand,
+      children: [
+        dogs[index].getPicture(),
+        dogs[index].getText(),
+      ],
+    ),
   );
 }
 
 _img(String img) {
   return Container(
+    color: Colors.white24,
     padding: const EdgeInsets.only(top: 45),
     child: Image.asset(
       "assets/images/" + img,
