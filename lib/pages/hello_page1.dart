@@ -24,12 +24,12 @@ _body(context) {
   return Container(
     color: Colors.white24,
     child: Center(
-      child: DefaultButton("Home", onPressed: () => _onClickPop(context)),
+      child: DefaultButton("Home", onPressed: () => _onClickPop(context, "Page 1")),
     ),
   );
 }
 
-_onClickPop(context){
-  pop(context, "Page 1");
+_onClickPop(context, [value]){
+  pop(context, value);
 }
 

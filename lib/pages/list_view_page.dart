@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/nav.dart';
+
 class Dog {
   String name;
   String picture;
@@ -21,10 +23,20 @@ class ListViewPage extends StatelessWidget {
         title: const Text("ListView"),
         backgroundColor: Colors.orange,
         centerTitle: true,
+        actions: [
+          _iconButton(() => _onClickPop(context, "Home"), const Icon(Icons.home)),
+        ],
       ),
       body: _body(),
     );
   }
+}
+
+_iconButton(Function() onPressed, icon) {
+  return IconButton(
+      onPressed: onPressed,
+      icon: icon,
+  );
 }
 
 _body() {
@@ -36,9 +48,9 @@ _body() {
     Dog("Border Collie", "dog5.png"),
   ];
 
-  return ListView.builder(
+  return GridView.builder(
     itemCount: dogs.length,
-    itemExtent: 420,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
     itemBuilder: (context, index) {
       return Stack(
         fit: StackFit.expand,
@@ -53,7 +65,7 @@ _body() {
 
 _img(String img) {
   return Container(
-    padding: const EdgeInsets.only(top: 65),
+    padding: const EdgeInsets.only(top: 45),
     child: Image.asset(
       "assets/images/" + img,
       fit: BoxFit.cover,
@@ -69,10 +81,15 @@ _text(String text) {
       child: Text(
         text,
         style: const TextStyle(
-          fontSize: 45,
+          fontSize: 25,
           color: Colors.black,
         ),
       ),
     ),
   );
 }
+
+_onClickPop(context, [value]){
+  pop(context, value);
+}
+
