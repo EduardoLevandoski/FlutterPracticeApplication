@@ -10,6 +10,14 @@ class DrawerList extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
+          const UserAccountsDrawerHeader(
+            accountName: Text("User user"),
+            accountEmail: Text("user@gmail.com"),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.black87,
+              backgroundImage: AssetImage("assets/images/avatar.png"),
+            ),
+          ),
           _listTile(context, Icons.favorite, "Favorites", "Your favorites..."),
           _listTile(context, Icons.help, "Help", "About us..."),
           ListTile(
