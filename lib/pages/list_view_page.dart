@@ -8,6 +8,7 @@ class Dog {
 
   getPicture() => _img(picture);
 
+  getText() => _text(name);
 }
 
 class ListViewPage extends StatelessWidget {
@@ -36,17 +37,42 @@ _body() {
   ];
 
   return ListView.builder(
-      itemCount: dogs.length,
-      itemExtent: 420,
-      itemBuilder: (context, index) => dogs[index].getPicture());
+    itemCount: dogs.length,
+    itemExtent: 420,
+    itemBuilder: (context, index) {
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          dogs[index].getPicture(),
+          dogs[index].getText(),
+        ],
+      );
+    },
+  );
 }
 
 _img(String img) {
   return Container(
-    padding: const EdgeInsets.only(top: 20),
+    padding: const EdgeInsets.only(top: 65),
     child: Image.asset(
       "assets/images/" + img,
       fit: BoxFit.cover,
+    ),
+  );
+}
+
+_text(String text) {
+  return Align(
+    alignment: Alignment.topCenter,
+    child: Container(
+      padding: const EdgeInsets.all(10),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 45,
+          color: Colors.black,
+        ),
+      ),
     ),
   );
 }
