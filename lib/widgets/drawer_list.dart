@@ -7,31 +7,34 @@ class DrawerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: [
-          const UserAccountsDrawerHeader(
-            accountName: Text("User user"),
-            accountEmail: Text("user@gmail.com"),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.black87,
-              backgroundImage: AssetImage("assets/images/avatar.png"),
+    return SafeArea(
+      child: Drawer(
+        child: ListView(
+          children: [
+            const UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: Colors.orange),
+              accountName: Text("User user", style: TextStyle(color: Colors.white)),
+              accountEmail: Text("user@gmail.com", style: TextStyle(color: Colors.white)),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage("assets/images/avatar.png"),
+              ),
             ),
-          ),
-          _listTile(context, Icons.favorite, "Favorites", "Your favorites..."),
-          _listTile(context, Icons.help, "Help", "About us..."),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text("Logout"),
-            trailing: const Icon(Icons.arrow_forward),
-            onTap: () {
-              if (kDebugMode) {
-                print("Favorites");
-              }
-              pop(context);
-            },
-          )
-        ],
+            _listTile(context, Icons.favorite, "Favorites", "Your favorites..."),
+            _listTile(context, Icons.help, "Help", "About us..."),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("Logout"),
+              trailing: const Icon(Icons.arrow_forward),
+              onTap: () {
+                if (kDebugMode) {
+                  print("Favorites");
+                }
+                pop(context);
+              },
+            )
+          ],
+        ),
       ),
     );
   }
