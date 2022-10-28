@@ -13,19 +13,37 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("App"),
-        backgroundColor: Colors.orange,
-        centerTitle: true,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("App"),
+          backgroundColor: Colors.orange,
+          centerTitle: true,
+          bottom: const TabBar(
+            labelColor: Colors.white,
+            indicatorColor: Colors.white,
+            tabs: [
+              Tab(text: "Tab 1",),
+              Tab(text: "Tab 2",),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            _body(context),
+            Container(
+              color: Colors.grey,
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _onClickFab(),
+          backgroundColor: Colors.orange,
+          child: const Icon(Icons.add),
+        ),
+        drawer: const DrawerList(),
       ),
-      body: _body(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _onClickFab(),
-        backgroundColor: Colors.orange,
-        child: const Icon(Icons.add),
-      ),
-      drawer: const DrawerList(),
     );
   }
 }
